@@ -1,0 +1,3 @@
+cp followers.txt beforeExecuteFollowers.txt
+dart ~/Desktop/gitrat/bin/main.dart
+diff followers.txt beforeExecuteFollowers.txt
