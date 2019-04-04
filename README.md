@@ -15,7 +15,7 @@ $ dart main.dart <username>
 - [ ] Tracking follower-change with git
 - [ ] Comparing stats by date
 - [ ] Custom options - CLI flags
-    - [ ] Username
+    - [x] Username
     - [ ] History
     - [ ] Tweet rats
     - [ ] Help
