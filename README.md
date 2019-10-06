@@ -4,11 +4,21 @@ Gitrat (**Git**hub-T**ra**i**t**ors) is a CLI utility to track GitHub (un)follow
 ## Prerequisite
 - [Dart](https://www.dartlang.org/)
 
-## Development
+## Setup
+1. Cloning Repository
 ```
 $ git clone https://github.com/piedcipher/gitrat
-$ cd gitrat && pub get
-$ dart main.dart <username>
+```
+
+2. Getting Dependencies
+```
+$ cd gitrat/ && pub get
+```
+
+3. Running App
+```
+$ dart2aot bin/main.dart bin/release.dart
+$ dartaotruntime bin/release.dart <username>
 ```
 
 ## Todo
