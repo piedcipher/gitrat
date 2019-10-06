@@ -4,9 +4,16 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 void main(final List<String> arguments) async {
+  final Directory gitratConfig = Directory('.gitrat');
+  if (!gitratConfig.existsSync()) {
+    gitratConfig.createSync();
+  }
   final String username = getInput(arguments);
   final List<String> followers = await getAllFollowers(username);
-  final File file = File('followers.txt');
+  final File file = File('.gitrat/$username.txt');
+  if (followers[0] == 'Not Found') {
+    return;
+  }
   if (!file.existsSync()) {
     file.writeAsStringSync('');
   }
@@ -59,12 +66,16 @@ Future<List<String>> getAllFollowers(String username, {int pageNo = 1}) async {
       'https://api.github.com/users/$username/followers?per_page=100&'
       'page=$pageNo';
   final http.Response response = await http.get(apiURL);
-  final List<dynamic> jsonResponse = jsonDecode(response.body);
+  final dynamic jsonResponse = jsonDecode(response.body);
+  if (jsonResponse.toString().contains('Not Found')) {
+    print('Username not found');
+    return ['Not Found'];
+  }
   if (jsonResponse is List && jsonResponse.isEmpty) {
     return List<String>();
   } else {
     List<String> users = await getAllFollowers(username, pageNo: pageNo + 1);
-    users.addAll((jsonResponse).map((i) => i['login']));
+    users.addAll((jsonResponse as List).map((i) => i['login']));
     return users;
   }
 }
